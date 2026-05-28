@@ -277,7 +277,7 @@ export default function LoginPage() {
                   )}
                 </div>
               </div>
-              <span className="text-xs text-slate-500">Remember my credentials</span>
+              <span className="text-xs text-slate-500">Remember Me</span>
             </label>
 
             {/* Error */}
@@ -340,9 +340,6 @@ export default function LoginPage() {
         </div>
 
       {/* Copyright — fixed to bottom of screen */}
-      <p className="fixed bottom-4 right-5 text-xs text-slate-400">
-        © {new Date().getFullYear()} Jenden Julkamri. All rights reserved.
-      </p>
       </div>
 
       {/* Privacy Statement modal */}
