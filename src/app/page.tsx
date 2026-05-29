@@ -79,11 +79,19 @@ export default function LoginPage() {
 
           <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-3"
               style={{ fontFamily: 'var(--font-heading)' }}>
-            MikroTik<br />Hotspot Manager
+            NETROTIK
           </h1>
-          <p className="text-indigo-200 text-sm leading-relaxed mb-10">
-            Connect, generate, and manage your WiFi vouchers — fast, simple, powerful.
+          <p className="text-indigo-200 text-sm leading-relaxed mb-4">
+            Hotspot Voucher Manager · netrotik.net
           </p>
+
+          {/* MikroTik badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 mb-8">
+            <span className="flex items-center justify-center w-5 h-5 rounded-sm bg-[#CC0000] flex-shrink-0">
+              <span className="text-white font-black text-[10px] leading-none">M</span>
+            </span>
+            <span className="text-white text-xs font-semibold tracking-wide">MikroTik RouterOS</span>
+          </div>
 
           <ul className="space-y-3 hidden lg:block">
             {[
@@ -115,7 +123,7 @@ export default function LoginPage() {
                 style={{ fontFamily: 'var(--font-heading)' }}>
               Connect to Router
             </h2>
-            <p className="text-slate-500 text-sm">Enter your RouterOS API credentials</p>
+            <p className="text-slate-500 text-sm">Enter your MikroTik RouterOS API credentials</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -325,14 +333,14 @@ export default function LoginPage() {
           </div>
 
           {/* Privacy links */}
-          <p className="text-center text-xs text-slate-400 mt-4">
+          <p className="text-center text-sm text-slate-400 mt-[4.5rem]">
             <button type="button" onClick={() => setShowPrivacy(true)}
-              className="underline underline-offset-2 hover:text-indigo-500 transition-colors">
+              className="hover:text-indigo-500 transition-colors">
               Privacy Statement
             </button>
             <span className="mx-1.5">·</span>
             <button type="button" onClick={() => setShowCookies(true)}
-              className="underline underline-offset-2 hover:text-indigo-500 transition-colors">
+              className="hover:text-indigo-500 transition-colors">
               Cookie Policy
             </button>
           </p>

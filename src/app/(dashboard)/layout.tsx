@@ -63,7 +63,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="hidden sm:block min-w-0">
               <p className="text-sm font-bold text-white leading-none truncate"
                  style={{ fontFamily: 'var(--font-heading)' }}>
-                MikroTik Hotspot
+                NETROTIK
               </p>
             </div>
           </div>

@@ -23,8 +23,8 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'MikroTik Hotspot Manager',
-  description: 'Generate and print hotspot vouchers',
+  title: 'NETROTIK — Hotspot Manager',
+  description: 'Generate and print hotspot vouchers — NETROTIK',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
