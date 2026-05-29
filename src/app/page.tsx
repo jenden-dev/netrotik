@@ -59,7 +59,7 @@ export default function LoginPage() {
       } else {
         localStorage.removeItem('mkSavedCreds')
       }
-      router.push('/generate')
+      router.push('/hotspot')
     } catch {
       setError('Cannot connect — check network or router IP')
     } finally {
@@ -471,6 +471,27 @@ export default function LoginPage() {
                 Got it
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Connecting progress overlay */}
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-7 h-7 rounded-sm bg-[#CC0000]">
+                <span className="text-white font-black text-xs leading-none">M</span>
+              </span>
+              <span className="text-base font-bold text-slate-800" style={{ fontFamily: 'var(--font-heading)' }}>
+                NETROTIK
+              </span>
+            </div>
+            <p className="text-sm text-slate-600 font-medium">Connecting to router…</p>
+            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+              <div className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 animate-[progress_1.8s_ease-in-out_infinite]" />
+            </div>
+            <p className="text-xs text-slate-400">Please wait</p>
           </div>
         </div>
       )}

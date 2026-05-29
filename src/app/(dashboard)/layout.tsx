@@ -70,7 +70,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           {/* Nav */}
           <nav className="flex items-center gap-1">
-            {navLink('/generate', 'Generate')}
+            {navLink('/hotspot', 'Generate')}
             {navLink('/users', 'Users')}
             {navLink('/active', 'Live Active', true)}
           </nav>
