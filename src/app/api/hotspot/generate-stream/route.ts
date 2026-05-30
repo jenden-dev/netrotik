@@ -3,7 +3,12 @@ import { isMacAddress, resolveMacToIp, rosCmdWithProgress } from '@/lib/mikrotik
 import { parseCreds } from '@/lib/validate'
 import { customAlphabet } from 'nanoid'
 
-const genCode = customAlphabet('ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789', 8)
+const CHAR_SETS: Record<string, string> = {
+  alphanumeric: 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789',
+  numeric:      '0123456789',
+  alpha:        'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz',
+  uppercase:    'ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
@@ -12,15 +17,25 @@ export async function POST(req: NextRequest) {
 
   const { creds } = result
   const { host, port, username, password } = creds
-  const { quantity, profile, timeLimit, timeLimitLabel, amount } = body
+  const {
+    quantity, profile, timeLimit, timeLimitLabel, amount,
+    server, nameLength, characters, customChars, dataLimit, comment,
+  } = body
 
-  // Validate generate-specific fields
   const qty = Number(quantity)
   if (!Number.isInteger(qty) || qty < 1 || qty > 3000)
     return Response.json({ error: 'Quantity must be 1–3000' }, { status: 400 })
   if (!profile || typeof profile !== 'string' || profile.length > 64)
     return Response.json({ error: 'Invalid profile' }, { status: 400 })
 
+  const len = Math.min(Math.max(Number(nameLength) || 8, 4), 12)
+  const charSet = characters === 'custom'
+    ? (typeof customChars === 'string' && customChars.trim().length >= 2 ? customChars.trim() : null)
+    : (CHAR_SETS[characters as string] ?? CHAR_SETS.alphanumeric)
+  if (!charSet)
+    return Response.json({ error: 'Custom character set must have at least 2 characters' }, { status: 400 })
+
+  const genCode = customAlphabet(charSet, len)
   const encoder = new TextEncoder()
 
   const stream = new ReadableStream({
@@ -41,12 +56,11 @@ export async function POST(req: NextRequest) {
             `=password=${code}`,
             `=profile=${profile}`,
           ]
-          if (timeLimit && timeLimit !== 'unlimited') {
-            words.push(`=limit-uptime=${timeLimit}`)
-          }
-          if (amount) {
-            words.push(`=comment=₱${amount}`)
-          }
+          if (server)    words.push(`=server=${server}`)
+          if (timeLimit && timeLimit !== 'unlimited') words.push(`=limit-uptime=${timeLimit}`)
+          if (dataLimit) words.push(`=limit-bytes-total=${dataLimit}`)
+          if (comment)   words.push(`=comment=${comment}`)
+          else if (amount) words.push(`=comment=₱${amount}`)
           return words
         })
 
@@ -80,9 +94,9 @@ export async function POST(req: NextRequest) {
 
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/event-stream',
+      'Content-Type':  'text/event-stream',
       'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
+      'Connection':    'keep-alive',
     },
   })
 }

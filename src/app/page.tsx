@@ -83,9 +83,22 @@ export default function LoginPage() {
           {/* Icon */}
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl
                           bg-white/15 backdrop-blur-sm ring-1 ring-white/25 mb-7 shadow-xl">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+            <svg className="w-9 h-9" viewBox="0 0 24 24" fill="none"
+                 strokeLinecap="round" strokeLinejoin="round">
+              {/* Router box */}
+              <rect x="3" y="8" width="12" height="10" rx="2" stroke="#ffffff" strokeWidth={2}/>
+              <line x1="6" y1="11" x2="12" y2="11" stroke="#ffffff" strokeWidth={1.8}/>
+              <line x1="6" y1="14" x2="9" y2="14" stroke="#ffffff" strokeWidth={1.8}/>
+              {/* Antennas */}
+              <path d="M7 8 L5 3 M10 8 L9 2" stroke="#ffffff" strokeWidth={2}/>
+              {/* WiFi arcs */}
+              <path d="M13 5 Q16 2 19 5" stroke="#a5b4fc" strokeWidth={1.5} opacity={0.9}/>
+              <path d="M14 3 Q16 1 18 3" stroke="#a5b4fc" strokeWidth={1.2} opacity={0.6}/>
+              {/* Touch lines */}
+              <path d="M21 20 L24 17 M20 18 L23 15" stroke="#ffffff" strokeWidth={1.8}/>
+              {/* Touch point */}
+              <circle cx="22" cy="18" r="1.5" fill="#ffffff"/>
+              <circle cx="22" cy="18" r="3" stroke="#6ee7b7" strokeWidth={1} opacity={0.6}/>
             </svg>
           </div>
 
@@ -94,7 +107,7 @@ export default function LoginPage() {
             NETROTIK
           </h1>
           <p className="text-indigo-200 text-sm leading-relaxed mb-4">
-            Hotspot Voucher Manager · netrotik.net
+            MikroTik Hotspot Voucher Manager · Generate, Print &amp; Monitor · netrotik.net
           </p>
 
           {/* MikroTik badge */}
@@ -127,22 +140,22 @@ export default function LoginPage() {
       </div>
 
       {/* ── Login Form ──────────────────────────────── */}
-      <div className="flex items-center justify-center px-6 py-12 bg-slate-50 lg:w-[480px]">
+      <div className="flex items-center justify-center px-6 py-12 bg-slate-50 dark:bg-slate-900 lg:w-[480px]">
         <div className="w-full max-w-sm">
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-1"
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-1"
                 style={{ fontFamily: 'var(--font-heading)' }}>
               Connect to Router
             </h2>
-            <p className="text-slate-500 text-sm">Enter your MikroTik RouterOS API credentials</p>
+            <p className="text-slate-500 dark:text-slate-400 text-sm">Enter your MikroTik RouterOS API credentials</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
             {/* Host */}
             <div>
-              <label htmlFor="host" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+              <label htmlFor="host" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                 Connect to
               </label>
               <div className="relative">
@@ -156,11 +169,11 @@ export default function LoginPage() {
                   id="host" name="host"
                   type="text" required
                   autoComplete="url"
-                  placeholder="IP address, hostname, or MAC"
+                  placeholder="IP address or hostname"
                   value={creds.host}
                   onChange={(e) => setCreds({ ...creds, host: e.target.value })}
-                  className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm
-                             text-slate-900 placeholder:text-slate-400 shadow-sm
+                  className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm
+                             text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm
                              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
@@ -168,7 +181,7 @@ export default function LoginPage() {
 
             {/* Port */}
             <div>
-              <label htmlFor="port" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+              <label htmlFor="port" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                 Port
               </label>
               <div className="relative">
@@ -188,8 +201,8 @@ export default function LoginPage() {
                   autoComplete="off"
                   value={creds.port}
                   onChange={(e) => setCreds({ ...creds, port: Number(e.target.value) })}
-                  className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm
-                             text-slate-900 shadow-sm
+                  className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm
+                             text-slate-900 dark:text-slate-100 shadow-sm
                              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
                 <datalist id="port-suggestions">
@@ -207,7 +220,7 @@ export default function LoginPage() {
 
             {/* Username */}
             <div>
-              <label htmlFor="username" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+              <label htmlFor="username" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                 Username
               </label>
               <div className="relative">
@@ -223,8 +236,8 @@ export default function LoginPage() {
                   autoComplete="username"
                   value={creds.username}
                   onChange={(e) => setCreds({ ...creds, username: e.target.value })}
-                  className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm
-                             text-slate-900 shadow-sm
+                  className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm
+                             text-slate-900 dark:text-slate-100 shadow-sm
                              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
@@ -232,7 +245,7 @@ export default function LoginPage() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+              <label htmlFor="password" className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -249,8 +262,8 @@ export default function LoginPage() {
                   value={creds.password}
                   onChange={(e) => setCreds({ ...creds, password: e.target.value })}
                   placeholder="Leave blank if no password"
-                  className="w-full pl-9 pr-9 py-2.5 bg-white border border-slate-200 rounded-xl text-sm
-                             text-slate-900 placeholder:text-slate-400 shadow-sm
+                  className="w-full pl-9 pr-9 py-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm
+                             text-slate-900 dark:text-slate-100 placeholder:text-slate-400 shadow-sm
                              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
                 <button
@@ -287,7 +300,7 @@ export default function LoginPage() {
                   }}
                   className="sr-only peer"
                 />
-                <div className="w-4 h-4 rounded border border-slate-300 bg-white
+                <div className="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700
                                 peer-checked:bg-indigo-600 peer-checked:border-indigo-600
                                 transition-colors flex items-center justify-center">
                   {rememberMe && (
@@ -297,12 +310,12 @@ export default function LoginPage() {
                   )}
                 </div>
               </div>
-              <span className="text-xs text-slate-500">Remember Me</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">Remember Me</span>
             </label>
 
             {/* Error */}
             {error && (
-              <div className="flex items-start gap-2.5 bg-red-50 border border-red-100 text-red-600
+              <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/40 text-red-600 dark:text-red-400
                               text-xs px-3.5 py-2.5 rounded-xl">
                 <svg className="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" clipRule="evenodd"
@@ -365,53 +378,73 @@ export default function LoginPage() {
       {/* Privacy Statement modal */}
       {showPrivacy && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
-            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900" style={{ fontFamily: 'var(--font-heading)' }}>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-50" style={{ fontFamily: 'var(--font-heading)' }}>
                 Privacy Statement
               </h3>
               <button onClick={() => setShowPrivacy(false)}
                 className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400
-                           hover:bg-slate-100 hover:text-slate-700 transition-colors">
+                           hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <div className="px-6 py-5 space-y-5">
-              <div className="flex items-start gap-3">
-                <span className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="px-6 py-5 space-y-4 max-h-[60vh] overflow-y-auto">
+              {[
+                {
+                  color: 'emerald',
+                  icon: (
                     <path fillRule="evenodd" clipRule="evenodd"
-                      d="M10 1a9 9 0 100 18A9 9 0 0010 1zm3.707 7.293a1 1 0 00-1.414-1.414L9 10.172 7.707 8.879a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 mb-0.5">Your credentials are never stored</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    Your MikroTik IP address, username, and password are kept only in your browser&apos;s session memory and communicated directly to your router. They are never transmitted to, or saved in, any external server or database.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-8 h-8 rounded-full bg-violet-50 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-violet-500" fill="currentColor" viewBox="0 0 20 20">
+                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" />
+                  ),
+                  title: 'Router credentials stay on your device',
+                  body: 'Your MikroTik IP address, username, and password are stored only in your browser\'s sessionStorage — never sent to any external server. They are erased automatically when you close the tab or click Logout.',
+                },
+                {
+                  color: 'indigo',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm11 1H6v8l4-2 4 2V6z" />
+                  ),
+                  title: 'Voucher data stays in your browser',
+                  body: 'Generated voucher batches are saved in your browser\'s localStorage with a 24-hour expiry. Nothing is uploaded to any cloud service or third-party system. Clearing your browser data removes them permanently.',
+                },
+                {
+                  color: 'violet',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                  ),
+                  title: 'No data collection, no tracking',
+                  body: 'NETROTIK does not collect, transmit, or store any personal information on any server. There are no analytics scripts, no advertising trackers, and no third-party services that can observe your usage.',
+                },
+                {
+                  color: 'amber',
+                  icon: (
                     <path fillRule="evenodd" clipRule="evenodd"
                       d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 mb-0.5">Open source &amp; transparent</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    This is a free, open-source MikroTik hotspot manager. The full source code is available for anyone to inspect, verify, modify, and self-host. There is no proprietary lock-in and no hidden data collection.
-                  </p>
+                  ),
+                  title: 'Open-source & self-hostable',
+                  body: 'The full source code is publicly available for anyone to inspect, audit, modify, and self-host. There is no proprietary lock-in. You are always in full control of how and where this app runs.',
+                },
+              ].map(({ color, icon, title, body }) => (
+                <div key={title} className="flex items-start gap-3">
+                  <span className={`w-8 h-8 rounded-full bg-${color}-50 dark:bg-${color}-900/20 flex items-center justify-center shrink-0`}>
+                    <svg className={`w-4 h-4 text-${color}-500`} fill="currentColor" viewBox="0 0 20 20">{icon}</svg>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-0.5">{title}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{body}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="px-6 pb-5">
+            <div className="px-6 pb-5 pt-2">
               <button onClick={() => setShowPrivacy(false)}
-                className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white
-                           text-sm font-semibold transition-colors">
+                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500
+                           text-white text-sm font-semibold transition-all">
                 Got it
               </button>
             </div>
@@ -422,52 +455,90 @@ export default function LoginPage() {
       {/* Cookie Policy modal */}
       {showCookies && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
-            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900" style={{ fontFamily: 'var(--font-heading)' }}>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-50" style={{ fontFamily: 'var(--font-heading)' }}>
                 Cookie Policy
               </h3>
               <button onClick={() => setShowCookies(false)}
                 className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400
-                           hover:bg-slate-100 hover:text-slate-700 transition-colors">
+                           hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <div className="px-6 py-5 space-y-5">
-              <div className="flex items-start gap-3">
-                <span className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9v-2h2v2zm0-4H9V7h2v2z" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 mb-0.5">No tracking cookies</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    This app does not use any cookies. No analytics, no advertising trackers, no third-party scripts that collect your data.
-                  </p>
+            <div className="px-6 py-5 space-y-4 max-h-[60vh] overflow-y-auto">
+
+              {/* No cookies banner */}
+              <div className="flex items-center gap-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/40 rounded-xl px-4 py-3">
+                <svg className="w-4 h-4 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" clipRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                </svg>
+                <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                  This app uses zero cookies — no tracking, no advertising, no analytics.
+                </p>
+              </div>
+
+              {/* Storage table */}
+              <div>
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Browser storage used</p>
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                  {[
+                    {
+                      type: 'sessionStorage',
+                      key: 'mkCreds',
+                      what: 'Router credentials (host, port, username, password)',
+                      when: 'Cleared on tab close or Logout',
+                    },
+                    {
+                      type: 'localStorage',
+                      key: 'mkConfig',
+                      what: 'Hotspot name and currency symbol',
+                      when: 'Kept until manually changed',
+                    },
+                    {
+                      type: 'localStorage',
+                      key: 'mkBatches',
+                      what: 'Generated voucher batches (codes only)',
+                      when: 'Auto-cleared after 24 hours',
+                    },
+                    {
+                      type: 'localStorage',
+                      key: 'mkSavedCreds',
+                      what: 'Saved login credentials (Remember Me only)',
+                      when: 'Until you uncheck Remember Me',
+                    },
+                    {
+                      type: 'localStorage',
+                      key: 'mkTheme',
+                      what: 'Dark / light mode preference',
+                      when: 'Kept until toggled',
+                    },
+                  ].map((row, i, arr) => (
+                    <div key={row.key} className={`px-4 py-3 ${i < arr.length - 1 ? 'border-b border-slate-100 dark:border-slate-700/50' : ''}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] font-bold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded font-mono">
+                          {row.type}
+                        </span>
+                        <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-200">{row.key}</span>
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{row.what}</p>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{row.when}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <span className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" clipRule="evenodd"
-                      d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" />
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 mb-0.5">Session storage only</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    The only browser storage used is <code className="bg-slate-100 px-1 rounded">sessionStorage</code> — to remember your login credentials within your current tab. This is cleared automatically when you close the tab or click Logout. Nothing is written to <code className="bg-slate-100 px-1 rounded">localStorage</code> except your hotspot display settings (name, currency).
-                  </p>
-                </div>
-              </div>
+
+              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                You can clear all stored data at any time by opening your browser&apos;s Developer Tools → Application → Storage → Clear Site Data.
+              </p>
             </div>
-            <div className="px-6 pb-5">
+            <div className="px-6 pb-5 pt-2">
               <button onClick={() => setShowCookies(false)}
-                className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white
-                           text-sm font-semibold transition-colors">
+                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500
+                           text-white text-sm font-semibold transition-all">
                 Got it
               </button>
             </div>
@@ -478,20 +549,20 @@ export default function LoginPage() {
       {/* Connecting progress overlay */}
       {loading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
             <div className="flex items-center gap-2">
               <span className="flex items-center justify-center w-7 h-7 rounded-sm bg-[#CC0000]">
                 <span className="text-white font-black text-xs leading-none">M</span>
               </span>
-              <span className="text-base font-bold text-slate-800" style={{ fontFamily: 'var(--font-heading)' }}>
+              <span className="text-base font-bold text-slate-800 dark:text-slate-100" style={{ fontFamily: 'var(--font-heading)' }}>
                 NETROTIK
               </span>
             </div>
-            <p className="text-sm text-slate-600 font-medium">Connecting to router…</p>
-            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+            <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">Connecting to router…</p>
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
               <div className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 animate-[progress_1.8s_ease-in-out_infinite]" />
             </div>
-            <p className="text-xs text-slate-400">Please wait</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">Please wait</p>
           </div>
         </div>
       )}
@@ -499,16 +570,16 @@ export default function LoginPage() {
       {/* reCAPTCHA modal */}
       {showCaptcha && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
             <div className="flex items-center gap-2">
               <span className="flex items-center justify-center w-7 h-7 rounded-sm bg-[#CC0000]">
                 <span className="text-white font-black text-xs leading-none">M</span>
               </span>
-              <span className="text-base font-bold text-slate-800" style={{ fontFamily: 'var(--font-heading)' }}>
+              <span className="text-base font-bold text-slate-800 dark:text-slate-100" style={{ fontFamily: 'var(--font-heading)' }}>
                 NETROTIK
               </span>
             </div>
-            <p className="text-sm text-slate-500 text-center">Please verify you&apos;re human before connecting.</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 text-center">Please verify you&apos;re human before connecting.</p>
             <ReCAPTCHA
               ref={recaptchaRef}
               sitekey={SITE_KEY}

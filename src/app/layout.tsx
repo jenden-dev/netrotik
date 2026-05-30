@@ -1,5 +1,6 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
+import ThemeProvider from '@/components/ThemeProvider'
 import './globals.css'
 
 const inter = Inter({
@@ -22,10 +23,18 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 })
 
+export const viewport: Viewport = {
+  themeColor: '#4F46E5',
+}
+
 export const metadata: Metadata = {
   title: 'NETROTIK — Hotspot Manager',
   description: 'Generate and manage MikroTik hotspot vouchers with ease. Fast, simple, and powerful hotspot voucher manager.',
-  themeColor: '#4F46E5',
+  icons: {
+    icon:      [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut:  [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple:     [{ url: '/icon.svg', type: 'image/svg+xml' }],
+  },
   openGraph: {
     type: 'website',
     url: 'https://netrotik.net/',
@@ -52,7 +61,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`h-full ${inter.variable} ${jakarta.variable} ${jetbrains.variable}`}>
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased"><ThemeProvider>{children}</ThemeProvider></body>
     </html>
   )
 }

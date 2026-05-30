@@ -48,8 +48,8 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
 
   return (
     <div style={{
-      width:           isD3 ? '2in' : '1.7in',
-      height:          isD3 ? '2in' : '1in',
+      width:           '35mm',
+      height:          isD3 ? '35mm' : '22mm',
       background:      '#fff',
       display:         'flex',
       flexDirection:   'column',
@@ -66,10 +66,10 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
       <div style={{
         background:     `linear-gradient(90deg, ${color}, ${colorL})`,
         color:          '#fff',
-        fontSize:       '10px',
+        fontSize:       '7px',
         fontWeight:     700,
         textAlign:      'center',
-        padding:        '2px 6px',
+        padding:        '1px 4px',
         fontFamily:     ff,
         whiteSpace:     'nowrap',
         overflow:       'hidden',
@@ -85,13 +85,13 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
         flexDirection:  'column',
         justifyContent: 'space-evenly',
         alignItems:     'center',
-        padding:        '2px 4px',
+        padding:        '1px 3px',
         textAlign:      'center',
         fontFamily:     ff,
       }}>
 
         {/* Title */}
-        <div style={{ fontSize: '8px', fontWeight: 600, textTransform: 'uppercase', color, letterSpacing: '0.04em' }}>
+        <div style={{ fontSize: '6px', fontWeight: 600, textTransform: 'uppercase', color, letterSpacing: '0.04em' }}>
           {style === 'user' && design !== 3 ? 'Hotspot Access Code' : 'Wi-Fi Voucher'}
         </div>
 
@@ -99,18 +99,18 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
         {isD3 && (
           <div style={{
             border:         `1px dashed ${color}`,
-            padding:        '2px',
+            padding:        '1px',
             display:        'flex',
             justifyContent: 'center',
             alignItems:     'center',
           }}>
-            <QRCodeSVG value={qrUrl} size={showCreds ? 52 : 62} level="L" />
+            <QRCodeSVG value={qrUrl} size={showCreds ? 36 : 44} level="L" />
           </div>
         )}
 
         {/* Credentials row — Design 2 & 3 user style */}
         {showCreds && (
-          <div style={{ fontSize: '8px', lineHeight: 1.5, color: '#111827' }}>
+          <div style={{ fontSize: '6px', lineHeight: 1.4, color: '#111827' }}>
             <div>User: <strong style={{ fontFamily: 'monospace' }}>{voucher.code}</strong></div>
             <div>Pass: <strong style={{ fontFamily: 'monospace' }}>{voucher.code}</strong></div>
           </div>
@@ -118,12 +118,12 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
 
         {/* Voucher Code */}
         <div style={{
-          fontSize:     isD3 ? '11px' : '14px',
+          fontSize:     isD3 ? '8px' : '10px',
           fontWeight:   'bold',
           color:        '#000',
           border:       `1px dashed ${color}`,
           background:   colorVL,
-          padding:      '1px 6px',
+          padding:      '1px 4px',
           fontFamily:   'monospace',
           letterSpacing: '0.08em',
         }}>
@@ -131,8 +131,9 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
         </div>
 
         {/* Meta */}
-        <div style={{ fontSize: '7.5px', color: '#6b7280', whiteSpace: 'nowrap' }}>
-          {voucher.timeLimitLabel}&nbsp;&nbsp;|&nbsp;&nbsp;{currency}{voucher.amount}
+        <div style={{ fontSize: '6px', color: '#6b7280', whiteSpace: 'nowrap' }}>
+          {voucher.timeLimitLabel}&nbsp;&nbsp;|&nbsp;&nbsp;
+          {voucher.amount ? `${currency}${voucher.amount}` : 'Free'}
         </div>
 
       </div>
@@ -142,9 +143,9 @@ export default function VoucherPrintCard({ voucher, index, hotspotName, currency
         background:   colorVL,
         color,
         borderTop:    `1px solid ${colorMid}`,
-        fontSize:     '8px',
+        fontSize:     '6px',
         textAlign:    'center',
-        padding:      '2px',
+        padding:      '1px',
         fontWeight:   700,
         fontFamily:   ff,
       }}>

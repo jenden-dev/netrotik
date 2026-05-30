@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
   --font-heading: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -10,6 +12,11 @@ body {
   font-family: var(--font-sans);
   background: #f8fafc;
   color: #0f172a;
+}
+
+.dark body {
+  background: #0f172a;
+  color: #f1f5f9;
 }
 
 /* ─── Voucher Card — screen list view ─── */
@@ -92,4 +99,16 @@ input, select, textarea {
 /* ─── Hide print area on screen (printed via popup window instead) ─── */
 #print-area {
   display: none;
+}
+
+/* ─── Print: show only the voucher area, hide everything else ─── */
+@media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+  }
 }
