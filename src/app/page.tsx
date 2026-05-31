@@ -120,9 +120,12 @@ export default function LoginPage() {
 
           <ul className="space-y-3 hidden lg:block">
             {[
-              'Generate hundreds of vouchers instantly',
-              'Print 3 card designs on any paper size',
-              'Monitor live active sessions in real-time',
+              'Generate up to 3,000 vouchers in one batch with real-time progress',
+              'Print Classic or QR Code cards — 5 or 6 per row on A4, Short, and Folio paper',
+              'Monitor live active sessions in real-time with instant disconnect control',
+              'Manage hotspot users — enable, disable, or delete directly from the router',
+              'Full hotspot profile management — rate limits, timeouts, and shared user quotas',
+              'Dark mode, responsive design, and works entirely on your local network',
             ].map((feat) => (
               <li key={feat} className="flex items-start gap-3">
                 <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-emerald-400/25
