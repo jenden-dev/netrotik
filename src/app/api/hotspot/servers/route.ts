@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   try {
     const resolvedHost = isMacAddress(creds.host) ? await resolveMacToIp(creds.host) : creds.host
     const results = await rosCmd(resolvedHost, creds.port, creds.username, creds.password, [
-      ['/ip/hotspot/profile/print'],
+      ['/ip/hotspot/print'],
     ])
     const servers = results[0]
       .filter((r) => r.type === '!re')
