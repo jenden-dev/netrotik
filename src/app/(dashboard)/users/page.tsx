@@ -10,6 +10,8 @@ export default function UsersPage() {
   const [creds, setCreds]         = useState<MikrotikCreds | null>(null)
   const [users, setUsers]         = useState<HotspotUser[]>([])
   const [connected, setConnected] = useState(false)
+  const [loading, setLoading]     = useState(false)
+  const [refreshKey, setRefreshKey] = useState(0)
   const [error, setError]         = useState('')
   const [actionError, setActionError] = useState('')
   const [lastTs, setLastTs]       = useState<Date | null>(null)
@@ -30,6 +32,7 @@ export default function UsersPage() {
 
     async function startStream() {
       setConnected(false)
+      setLoading(false)
       setError('')
       try {
         const res = await fetch('/api/hotspot/users-stream', {
@@ -54,18 +57,19 @@ export default function UsersPage() {
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue
             const data = JSON.parse(line.slice(6))
+            if (data.loading !== undefined) setLoading(data.loading)
             if (data.users !== undefined) { setUsers(data.users); setLastTs(new Date()) }
-            if (data.error) setError(data.error)
+            if (data.error) { setError(data.error); setLoading(false) }
           }
         }
       } catch {
-        if (!cancelled) { setError('Stream disconnected'); setConnected(false) }
+        if (!cancelled) { setError('Stream disconnected'); setConnected(false); setLoading(false) }
       }
     }
 
     startStream()
     return () => { cancelled = true; controller.abort() }
-  }, [creds])
+  }, [creds, refreshKey])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -122,7 +126,7 @@ export default function UsersPage() {
             Hotspot Users
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-            All registered accounts — synced live from MikroTik · updates every 5 s
+            All registered accounts — synced from MikroTik · auto-refreshes every 60 s
           </p>
         </div>
 
@@ -150,13 +154,45 @@ export default function UsersPage() {
             {connected ? 'Live' : 'Connecting…'}
           </div>
 
-          {lastTs && (
-            <span className="text-xs text-slate-400">
+          {lastTs && !loading && (
+            <span className="text-xs text-slate-400 dark:text-slate-500">
               Updated {lastTs.toLocaleTimeString()}
             </span>
           )}
+
+          <button
+            onClick={() => { setUsers([]); setLastTs(null); setRefreshKey((k) => k + 1) }}
+            disabled={loading}
+            title="Reload users from MikroTik"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl border
+                       border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300
+                       hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors">
+            <svg className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            {loading ? 'Loading…' : 'Refresh'}
+          </button>
         </div>
       </div>
+
+      {/* Loading progress bar */}
+      {loading && (
+        <div className="mb-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 px-5 py-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Loading users from MikroTik…
+            </span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">Please wait</span>
+          </div>
+          <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-[progress_1.8s_ease-in-out_infinite]" />
+          </div>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+            Large user databases may take up to a minute. The page will update automatically when ready.
+          </p>
+        </div>
+      )}
 
       {/* Search */}
       {users.length > 0 && (

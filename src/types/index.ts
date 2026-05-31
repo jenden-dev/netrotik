@@ -1,6 +1,8 @@
 export interface AppConfig {
   hotspotName: string
   currency: string
+  loginUrl?: string
+  timezone?: string
 }
 
 export interface MikrotikCreds {

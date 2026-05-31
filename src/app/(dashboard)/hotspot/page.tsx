@@ -136,9 +136,17 @@ export default function DashboardPage() {
     const parsed: MikrotikCreds = JSON.parse(stored)
     setCreds(parsed)
     const savedConfig = localStorage.getItem('mkConfig')
-    const lastConfig: AppConfig = savedConfig ? JSON.parse(savedConfig) : DEFAULT_CONFIG
-    setModalInitial(lastConfig)
-    if (sessionStorage.getItem('mkSetupDone')) setConfig(lastConfig)
+    if (savedConfig) {
+      const lastConfig: AppConfig = JSON.parse(savedConfig)
+      setModalInitial(lastConfig)
+      if (lastConfig.hotspotName?.trim()) {
+        // Already configured — skip the modal
+        setConfig(lastConfig)
+        sessionStorage.setItem('mkSetupDone', '1')
+      }
+      // else: hotspotName is empty → show modal
+    }
+    // else: no saved config → show modal
     fetch('/api/hotspot/profiles', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(parsed),
@@ -445,7 +453,7 @@ export default function DashboardPage() {
               <button type="button" onClick={doGenerate}
                 className="flex-1 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600
                            hover:from-indigo-500 hover:to-violet-500 text-white text-sm font-semibold rounded-xl transition-all">
-                Generate
+                Confirm
               </button>
             </div>
           </div>
