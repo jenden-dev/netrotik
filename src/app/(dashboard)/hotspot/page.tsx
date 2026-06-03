@@ -56,6 +56,7 @@ export default function DashboardPage() {
   const [printOptions, setPrintOptions]           = useState<PrintOptions | null>(null)
 
   // ── Derived ──────────────────────────────────────────────
+  const batchKey = creds ? `mkBatches_${creds.host}` : null
   const allVouchers: Voucher[] = batches.flatMap((b) => b.vouchers)
   const filteredVouchers = search.trim()
     ? allVouchers.filter((v) => v.code.toLowerCase().includes(search.toLowerCase().trim()))
@@ -70,11 +71,11 @@ export default function DashboardPage() {
 
   // Persist batches — only after they have been loaded from localStorage
   useEffect(() => {
-    if (!batchesLoaded) return
+    if (!batchesLoaded || !batchKey) return
     try {
-      localStorage.setItem('mkBatches', JSON.stringify({ batches, savedAt: Date.now() }))
+      localStorage.setItem(batchKey, JSON.stringify({ batches, savedAt: Date.now() }))
     } catch { /* storage full */ }
-  }, [batches, batchesLoaded])
+  }, [batches, batchesLoaded, batchKey])
 
   // Print vouchers using @media print — no popup required
   useEffect(() => {
@@ -117,24 +118,26 @@ export default function DashboardPage() {
 
   // Mount: load credentials, config, profiles, persisted batches
   useEffect(() => {
+    const stored = sessionStorage.getItem('mkCreds')
+    if (!stored) { setBatchesLoaded(true); return }
+    const parsed: MikrotikCreds = JSON.parse(stored)
+    setCreds(parsed)
+
+    // Load batches scoped to this specific router
+    const key = `mkBatches_${parsed.host}`
     try {
-      const saved = localStorage.getItem('mkBatches')
+      const saved = localStorage.getItem(key)
       if (saved) {
-        const parsed = JSON.parse(saved)
+        const p = JSON.parse(saved)
         const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000
-        if (parsed.savedAt && Date.now() - parsed.savedAt < TWENTY_FOUR_HOURS) {
-          setBatches(parsed.batches ?? [])
+        if (p.savedAt && Date.now() - p.savedAt < TWENTY_FOUR_HOURS) {
+          setBatches(p.batches ?? [])
         } else {
-          localStorage.removeItem('mkBatches')
+          localStorage.removeItem(key)
         }
       }
     } catch {}
     setBatchesLoaded(true)
-
-    const stored = sessionStorage.getItem('mkCreds')
-    if (!stored) return
-    const parsed: MikrotikCreds = JSON.parse(stored)
-    setCreds(parsed)
     const savedConfig = localStorage.getItem('mkConfig')
     if (savedConfig) {
       const lastConfig: AppConfig = JSON.parse(savedConfig)
@@ -255,7 +258,9 @@ export default function DashboardPage() {
   function removeBatchLocally(batch: Batch) {
     setBatches((prev) => {
       const next = prev.filter((b) => b.id !== batch.id)
-      try { localStorage.setItem('mkBatches', JSON.stringify({ batches: next, savedAt: Date.now() })) } catch {}
+      if (batchKey) {
+        try { localStorage.setItem(batchKey, JSON.stringify({ batches: next, savedAt: Date.now() })) } catch {}
+      }
       return next
     })
   }
@@ -856,7 +861,7 @@ export default function DashboardPage() {
                           {batches.length.toLocaleString()} batch{batches.length !== 1 ? 'es' : ''} &middot; {allVouchers.length.toLocaleString()} total vouchers
                         </p>
                         <button
-                          onClick={() => { setBatches([]); localStorage.removeItem('mkBatches') }}
+                          onClick={() => { setBatches([]); if (batchKey) localStorage.removeItem(batchKey) }}
                           className="text-xs text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors font-medium">
                           Clear All
                         </button>
