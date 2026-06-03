@@ -54,8 +54,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const resolvedHost = isMacAddress(host) ? await resolveMacToIp(host) : host
-    await rosCmd(resolvedHost, Number(port), username, password ?? '', [])
-    return NextResponse.json({ success: true, resolvedHost })
+    const results = await rosCmd(resolvedHost, Number(port), username, password ?? '', [
+      ['/system/identity/print'],
+    ])
+    const identityRow = results[0]?.find((r) => r.type === '!re')
+    const routerIdentity = identityRow?.attrs['name'] ?? ''
+    return NextResponse.json({ success: true, resolvedHost, routerIdentity })
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 401 })
   }

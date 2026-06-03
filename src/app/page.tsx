@@ -51,7 +51,7 @@ export default function LoginPage() {
       })
       const data = await res.json()
       if (!res.ok) { setError(data.error || 'Login failed'); return }
-      const stored = { ...creds, host: data.resolvedHost ?? creds.host }
+      const stored = { ...creds, host: data.resolvedHost ?? creds.host, routerIdentity: data.routerIdentity ?? '' }
       sessionStorage.setItem('mkCreds', JSON.stringify(stored))
       sessionStorage.removeItem('mkSetupDone')
       if (rememberMe) {

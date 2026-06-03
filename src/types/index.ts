@@ -10,6 +10,7 @@ export interface MikrotikCreds {
   port: number
   username: string
   password: string
+  routerIdentity?: string
 }
 
 export interface Voucher {

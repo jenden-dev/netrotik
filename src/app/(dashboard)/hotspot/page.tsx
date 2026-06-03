@@ -56,7 +56,9 @@ export default function DashboardPage() {
   const [printOptions, setPrintOptions]           = useState<PrintOptions | null>(null)
 
   // ── Derived ──────────────────────────────────────────────
-  const batchKey = creds ? `mkBatches_${creds.host}` : null
+  const batchKey = creds
+    ? `mkBatches_${creds.routerIdentity ? `${creds.routerIdentity}_` : ''}${creds.host}`
+    : null
   const allVouchers: Voucher[] = batches.flatMap((b) => b.vouchers)
   const filteredVouchers = search.trim()
     ? allVouchers.filter((v) => v.code.toLowerCase().includes(search.toLowerCase().trim()))
@@ -123,8 +125,10 @@ export default function DashboardPage() {
     const parsed: MikrotikCreds = JSON.parse(stored)
     setCreds(parsed)
 
-    // Load batches scoped to this specific router
-    const key = `mkBatches_${parsed.host}`
+    // Load batches scoped to this specific router (identity + host = unique per device)
+    const key = parsed.routerIdentity
+      ? `mkBatches_${parsed.routerIdentity}_${parsed.host}`
+      : `mkBatches_${parsed.host}`
     try {
       const saved = localStorage.getItem(key)
       if (saved) {
