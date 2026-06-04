@@ -69,6 +69,61 @@ export default function LoginPage() {
     }
   }
 
+  const teamSection = (
+    <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-700 space-y-3">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Developer</p>
+      <div className="flex items-center gap-3">
+        <img src="https://cdn.mikrotik.com/web-assets/consultants/yepU8J7Mkf.jpeg"
+          alt="Jenden Julkamri"
+          className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-100 dark:ring-indigo-900/40 shrink-0" />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-100">Mr. Jenden Julkamri</p>
+          <div className="flex flex-wrap gap-1 mt-0.5">
+            {['MTCNA','MTCRE','MTCUME'].map((c) => (
+              <span key={c} className="text-[9px] font-bold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded">{c}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 pt-1">Consultants</p>
+      {[
+        {
+          name: 'Engr. Roy Lopez Pamitalan',
+          certs: ['MTCNA','MTCRE','MTCWE','MTCTCE','MTCUME','MTCINE','MTCEWE'],
+          img: 'https://cdn.mikrotik.com/web-assets/consultants/I1QCM07r41.png',
+        },
+        {
+          name: 'Prof. Mudzramer Hayudini, DIT (CAR)',
+          certs: ['MTCNA','MTCRE','MTCWE','MTCTCE','MTCUME','MTCINE'],
+          img: 'https://cdn.mikrotik.com/web-assets/consultants/RpdNGhRuwP.jpg',
+        },
+      ].map(({ name, certs, img }) => (
+        <div key={name} className="flex items-center gap-3">
+          <img src={img} alt={name}
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-violet-100 dark:ring-violet-900/40 shrink-0" />
+          <div className="min-w-0">
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-100">{name}</p>
+            <div className="flex flex-wrap gap-1 mt-0.5">
+              {certs.map((c) => (
+                <span key={c} className="text-[9px] font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 px-1.5 py-0.5 rounded">{c}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <p className="text-[10px] text-slate-400 dark:text-slate-500 pt-1">
+        For more info visit{' '}
+        <a href="https://mikrotik.com/consultants?category=consultants&region=Philippines"
+          target="_blank" rel="noopener noreferrer"
+          className="text-indigo-500 hover:text-indigo-600 underline underline-offset-2 transition-colors">
+          MikroTik Certified Consultants — Philippines
+        </a>
+      </p>
+    </div>
+  )
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
 
@@ -470,6 +525,7 @@ export default function LoginPage() {
               <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-700">
                 Last updated: June 2025 · For questions, contact the system administrator or the NETROTIK developer.
               </p>
+              {teamSection}
             </div>
             <div className="px-6 pb-5 pt-2">
               <button onClick={() => setShowTerms(false)}
@@ -547,6 +603,7 @@ export default function LoginPage() {
                   </div>
                 </div>
               ))}
+              {teamSection}
             </div>
             <div className="px-6 pb-5 pt-2">
               <button onClick={() => setShowPrivacy(false)}
@@ -641,6 +698,7 @@ export default function LoginPage() {
               <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
                 You can clear all stored data at any time by opening your browser&apos;s Developer Tools → Application → Storage → Clear Site Data.
               </p>
+              {teamSection}
             </div>
             <div className="px-6 pb-5 pt-2">
               <button onClick={() => setShowCookies(false)}
