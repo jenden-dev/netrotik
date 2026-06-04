@@ -73,7 +73,7 @@ export default function LoginPage() {
     <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-700 space-y-3">
       <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Developer</p>
       <div className="flex items-center gap-3">
-        <img src="https://cdn.mikrotik.com/web-assets/consultants/yepU8J7Mkf.jpeg"
+        <img src="/jenden-julkamri.jpeg"
           alt="Jenden Julkamri"
           className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-100 dark:ring-indigo-900/40 shrink-0" />
         <div className="min-w-0">
@@ -91,12 +91,12 @@ export default function LoginPage() {
         {
           name: 'Engr. Roy Lopez Pamitalan',
           certs: ['MTCNA','MTCRE','MTCWE','MTCTCE','MTCUME','MTCINE','MTCEWE'],
-          img: 'https://cdn.mikrotik.com/web-assets/consultants/I1QCM07r41.png',
+          img: '/roy-lopez-pamintalan.png',
         },
         {
           name: 'Prof. Mudzramer Hayudini, DIT (CAR)',
           certs: ['MTCNA','MTCRE','MTCWE','MTCTCE','MTCUME','MTCINE'],
-          img: 'https://cdn.mikrotik.com/web-assets/consultants/RpdNGhRuwP.jpg',
+          img: '/mudzramer-hayudini.jpg',
         },
       ].map(({ name, certs, img }) => (
         <div key={name} className="flex items-center gap-3">
