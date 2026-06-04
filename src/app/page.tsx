@@ -20,6 +20,7 @@ export default function LoginPage() {
   const [loading, setLoading]           = useState(false)
   const [showPrivacy, setShowPrivacy]   = useState(false)
   const [showCookies, setShowCookies]   = useState(false)
+  const [showTerms, setShowTerms]       = useState(false)
   const [error, setError]               = useState('')
   const [showCaptcha, setShowCaptcha]   = useState(false)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
@@ -362,6 +363,11 @@ export default function LoginPage() {
 
           {/* Privacy links */}
           <p className="text-center text-sm text-slate-400 mt-[4.5rem]">
+            <button type="button" onClick={() => setShowTerms(true)}
+              className="hover:text-indigo-500 transition-colors">
+              Terms &amp; Conditions
+            </button>
+            <span className="mx-1.5">·</span>
             <button type="button" onClick={() => setShowPrivacy(true)}
               className="hover:text-indigo-500 transition-colors">
               Privacy Statement
@@ -377,6 +383,95 @@ export default function LoginPage() {
 
       {/* Copyright — fixed to bottom of screen */}
       </div>
+
+      {/* Terms & Conditions modal */}
+      {showTerms && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100 dark:border-slate-700">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-50" style={{ fontFamily: 'var(--font-heading)' }}>
+                Terms &amp; Conditions
+              </h3>
+              <button onClick={() => setShowTerms(false)}
+                className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400
+                           hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-6 py-5 space-y-4 max-h-[60vh] overflow-y-auto">
+              {[
+                {
+                  color: 'indigo',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" />
+                  ),
+                  title: 'Acceptance of Terms',
+                  body: 'By accessing and using NETROTIK, you accept and agree to be bound by these Terms and Conditions. If you do not agree, please discontinue use of the application immediately.',
+                },
+                {
+                  color: 'violet',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" />
+                  ),
+                  title: 'Authorized Use Only',
+                  body: 'NETROTIK is intended solely for use by authorized administrators of MikroTik RouterOS hotspot systems. You must have explicit permission to manage the router and hotspot network you connect to. Unauthorized access to any network or device is strictly prohibited.',
+                },
+                {
+                  color: 'amber',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" />
+                  ),
+                  title: 'No Warranty',
+                  body: 'NETROTIK is provided "as is" without warranty of any kind, express or implied. We do not guarantee uninterrupted or error-free operation. Use of this application is at your own risk. We are not liable for any loss of data, revenue, or damages arising from use of this software.',
+                },
+                {
+                  color: 'emerald',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                  ),
+                  title: 'User Responsibilities',
+                  body: 'You are solely responsible for all actions performed through NETROTIK, including voucher generation, user management, and any configuration changes made to your MikroTik router. Ensure compliance with all applicable local laws and regulations when operating a public hotspot.',
+                },
+                {
+                  color: 'sky',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" />
+                  ),
+                  title: 'Changes to Terms',
+                  body: 'We reserve the right to update these Terms and Conditions at any time. Continued use of NETROTIK after changes are posted constitutes your acceptance of the revised terms. We encourage you to review these terms periodically.',
+                },
+              ].map(({ color, icon, title, body }) => (
+                <div key={title} className="flex items-start gap-3">
+                  <span className={`w-8 h-8 rounded-full bg-${color}-50 dark:bg-${color}-900/20 flex items-center justify-center shrink-0`}>
+                    <svg className={`w-4 h-4 text-${color}-500`} fill="currentColor" viewBox="0 0 20 20">{icon}</svg>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-0.5">{title}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{body}</p>
+                  </div>
+                </div>
+              ))}
+              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-700">
+                Last updated: June 2025 · For questions, contact the system administrator or the NETROTIK developer.
+              </p>
+            </div>
+            <div className="px-6 pb-5 pt-2">
+              <button onClick={() => setShowTerms(false)}
+                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500
+                           text-white text-sm font-semibold transition-all">
+                I Understand
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Privacy Statement modal */}
       {showPrivacy && (
