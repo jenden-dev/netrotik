@@ -439,6 +439,15 @@ export default function LoginPage() {
                   body: 'You are solely responsible for all actions performed through NETROTIK, including voucher generation, user management, and any configuration changes made to your MikroTik router. Ensure compliance with all applicable local laws and regulations when operating a public hotspot.',
                 },
                 {
+                  color: 'red',
+                  icon: (
+                    <path fillRule="evenodd" clipRule="evenodd"
+                      d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                  ),
+                  title: 'Security & Liability Disclaimer',
+                  body: 'Please be advised that we shall not be held liable for any security breaches, unauthorized access, or configuration damage that may occur. The system does not install or maintain any hidden configurations on your terminal. For security and auditing purposes, users are advised to regularly check the RouterOS logs and monitor all configuration changes.',
+                },
+                {
                   color: 'sky',
                   icon: (
                     <path fillRule="evenodd" clipRule="evenodd"
